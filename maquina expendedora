@@ -1,0 +1,142 @@
+using System;
+using System.Reflection.Metadata.Ecma335;
+
+class MaquinaExpendedora
+{
+    static void Main()
+    {
+        int inicio = 1;
+
+        while (inicio == 1)
+        {
+            float opcion, dinero, cambio;
+            int precio1 = 20, precio2 = 21, precio3 = 22, precio4 = 23;
+            string continuar = "s";
+
+            while (continuar == "s")
+            {
+                Console.Clear();
+                Console.WriteLine("Bienvenido a la máquina expendedora");
+                Console.WriteLine("Opciones de refrescos:");
+                Console.ForegroundColor = ConsoleColor.Red;
+                Console.WriteLine("1. Refresco cocacola - " + precio1 + " pesos");
+                Console.ForegroundColor = ConsoleColor.Blue;
+                Console.WriteLine("2. Refresco pepsi - " + precio2 + " pesos");
+                Console.ForegroundColor = ConsoleColor.Magenta;
+                Console.WriteLine("3. Refresco fanta de uva - " + precio3 + " pesos");
+                Console.ForegroundColor = ConsoleColor.DarkGray;
+                Console.WriteLine("4. Refresco cocacola light - " + precio4 + " pesos");
+                Console.ForegroundColor = ConsoleColor.White;
+                Console.WriteLine("Por favor, elige un número del 1 al 4 para seleccionar tu refresco");
+
+                string input = Console.ReadLine();
+                string onlyLetters = new string(input.Where(c => (c >= 65 && c <= 90) || (c >= 97 && c <= 122)).ToArray());
+                string onlyNumbers = new string(input.Where(c => c >= 48 && c <= 57).ToArray());
+                if (onlyNumbers.Length > 0 && onlyLetters.Length < 1)
+                {
+                    opcion = Convert.ToInt32(onlyNumbers);
+
+                    if (opcion > 0 && opcion < 5)
+                    {
+                        Console.WriteLine("Introduce el dinero en numeros cerrados (máximo aceptado es 100):");
+                        string chamoy = Console.ReadLine();
+                        string especiales = new string(chamoy.Where(c => c >= 0 && c <= 47 || c >= 123 && c <= 255).ToArray());
+                        string onlyLetters2 = new string(chamoy.Where(c => (c >= 65 && c <= 90) || (c >= 97 && c <= 122)).ToArray());
+                        string onlyNumbers2 = new string(chamoy.Where(c => c >= 46 && c <= 57).ToArray());
+                        if (onlyNumbers2.Length <= 0 || onlyLetters2.Length > 0 || especiales.Length > 0)
+                        {
+                            Console.ForegroundColor = ConsoleColor.Yellow;
+                            Console.WriteLine("opcion de dinero invalida, no sea mamon como va a tener letras un valor monetario");
+                            Console.ForegroundColor = ConsoleColor.White;
+                            Thread.Sleep(3000);
+                            continue;
+                        }
+                        dinero = (float)Convert.ToDouble(onlyNumbers2);
+                        if (dinero > 100)
+                        {
+                            Console.ForegroundColor = ConsoleColor.Green;
+                            Console.WriteLine("La máquina no acepta billetes mayores a 100. Operación cancelada, dinero devuelto");
+                            Console.ForegroundColor = ConsoleColor.White;
+                            Thread.Sleep(3000);
+                            continue;
+                        }
+                        switch (opcion)
+                        {
+                            case 1:
+                                if (dinero >= precio1)
+                                {
+                                    cambio = dinero - precio1;
+                                    Console.WriteLine("se despacho el Refresco cocacola. Tu cambio es: " + cambio + " pesos.");
+                                }
+                                else
+                                {
+                                    Console.WriteLine("Dinero insuficiente para la cocacola. se devolvio lo depositado");
+                                }
+                                break;
+                            case 2:
+                                if (dinero >= precio2)
+                                {
+                                    cambio = dinero - precio2;
+                                    Console.WriteLine("se despacho la pepsi. Tu cambio es: " + cambio + " pesos.");
+                                }
+                                else
+                                {
+                                    Console.WriteLine("Dinero insuficiente para la pepsi.  se devolvio lo depositado");
+                                }
+                                break;
+                            case 3:
+                                if (dinero >= precio3)
+                                {
+                                    cambio = dinero - precio3;
+                                    Console.WriteLine("se despacho una fanta de uva. Tu cambio es: " + cambio + " pesos.");
+                                }
+                                else
+                                {
+                                    Console.WriteLine("Dinero insuficiente para la fanta de uva.  se devolvio lo depositado");
+                                }
+                                break;
+                            case 4:
+                                if (dinero >= precio4)
+                                {
+                                    cambio = dinero - precio4;
+                                    Console.WriteLine("se despacho cocacola light. Tu cambio es: " + cambio + " pesos.");
+                                }
+                                else
+                                {
+                                    Console.WriteLine("Dinero insuficiente para la cocacola light.  se devolvio lo depositado");
+                                }
+                                break;
+                            default:
+                                Console.WriteLine("Opción no válida.");
+                                break;
+                        }
+                    }
+                    else
+                    {
+                        Console.ForegroundColor = ConsoleColor.Yellow;
+                        Console.WriteLine("solo tienes 4 opciones o te falto o te pasaste");
+                        Console.ForegroundColor = ConsoleColor.White;
+                        Thread.Sleep(3000);
+                        continue;
+                    }
+                    Console.ForegroundColor = ConsoleColor.Cyan;
+                    Console.WriteLine("¿Deseas realizar otra compra? (S/N):");
+                    Console.ForegroundColor = ConsoleColor.White;
+                    continuar = Convert.ToString(Console.ReadLine());
+                }
+                else
+                {
+                    Console.ForegroundColor = ConsoleColor.Yellow;
+                    Console.WriteLine("numeros del 1 al 4 no letras");
+                    Thread.Sleep(3000);
+                    Console.ForegroundColor = ConsoleColor.White;
+                    continue;
+                }
+            }
+            Console.ForegroundColor = ConsoleColor.Cyan;
+            Console.WriteLine("GRACIAS POR USAR LA MAQUINA EXPENDEDORA");
+            Console.ForegroundColor = ConsoleColor.White;
+            Thread.Sleep(2000);
+        }
+    }
+}
